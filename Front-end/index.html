@@ -1,107 +1,185 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="lib/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/main.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="lib/bootstrap-5.0.2-dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style/main.css" />
     <title>POS</title>
-</head>
-<body>
-<header>
-    <!--site Row-->
-    <section>
+  </head>
+  <body>
+    <header>
+      <!--site Row-->
+      <section>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">POS SYSTEM</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <div id="btnOrder" class="nav-link" style="cursor: pointer">Order</div>
-                        </li>
-                        <li class="nav-item">
-                            <div id="btnItem" class="nav-link" style="cursor: pointer">Item</div>
-                        </li>
-                        <li class="nav-item">
-                            <div id="btnCustomer" class="nav-link" style="cursor: pointer">Customer</div>
-                        </li>
-                    </ul>
-                </div>
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">POS SYSTEM</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <div id="btnOrder" class="nav-link" style="cursor: pointer">
+                    Order
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div id="btnItem" class="nav-link" style="cursor: pointer">
+                    Item
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div
+                    id="btnCustomer"
+                    class="nav-link"
+                    style="cursor: pointer"
+                  >
+                    Customer
+                  </div>
+                </li>
+              </ul>
             </div>
+          </div>
         </nav>
-    </section>
-</header>
+      </section>
+    </header>
 
-<main>
-    <div class="container">
-        <h1 class="row g-3 justify-content-center"><span class="badge bg-white text-dark pb-3">CUSTOMER</span></h1>
+    <main>
+      <div class="container">
+        <h1 class="row g-3 justify-content-center">
+          <span class="badge bg-white text-dark pb-3">CUSTOMER</span>
+        </h1>
         <form id="form-customer" class="border p-3">
-            <div class="row g-3 justify-content-center">
-                <div class="col-auto mb-3">
-                    <input type="text" class="form-control" id="customer-id" name="custID" placeholder="ID : C00-001">
-                </div>
-                <div class="col-auto mb-3">
-                    <input type="text" class="form-control" id="customer-name" name="custName" placeholder="Name : Vidura">
-                </div>
-                <div class="col-auto mb-3">
-                    <input type="text" class="form-control" id="customer-address" name="custAddress" placeholder="Address : Galle">
-                </div>
-                <div class="col-auto mb-3">
-                    <input type="number" class="form-control" id="customer-salary" name="custSalary" placeholder="Salary : 250000">
-                </div>
+          <div class="row g-3 justify-content-center">
+            <div class="col-auto mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="customer-id"
+                name="custID"
+                placeholder="ID : C00-001"
+              />
             </div>
-            <div class="row g-3 justify-content-center">
-
-                <div class="col-auto mb-3">
-                    <button class="btn btn-primary" style="min-width: 100px;">Add</button>
-                </div>
-                <div class="col-auto  mb-3">
-                    <button class="btn btn-secondary" style="min-width: 100px;">Update</button>
-                </div>
-                <div class="col-auto  mb-3">
-                    <button class="btn btn-danger" style="min-width: 100px;">Delete</button>
-                </div>
+            <div class="col-auto mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="customer-name"
+                name="custName"
+                placeholder="Name : Vidura"
+              />
             </div>
-            <div class="row g-3 justify-content-center">
-                <div class="col-auto d-flex">
-                    <input class="form-control me-lg-4" type="search" placeholder="Search ID" aria-label="Search">
-                    <button class="btn btn-outline-dark js-btn-search-customer" type="button">Search</button>
-                </div>
+            <div class="col-auto mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="customer-address"
+                name="custAddress"
+                placeholder="Address : Galle"
+              />
             </div>
+            <div class="col-auto mb-3">
+              <input
+                type="number"
+                class="form-control"
+                id="customer-salary"
+                name="custSalary"
+                placeholder="Salary : 250000"
+              />
+            </div>
+          </div>
+          <div class="row g-3 justify-content-center">
+            <div class="col-auto mb-3">
+              <button
+                class="btn btn-primary js-btn-add-customer"
+                type="button"
+                style="min-width: 100px"
+              >
+                Add
+              </button>
+            </div>
+            <div class="col-auto mb-3">
+              <button
+                class="btn btn-secondary"
+                style="min-width: 100px"
+                type="button"
+              >
+                Update
+              </button>
+            </div>
+            <div class="col-auto mb-3">
+              <button
+                class="btn btn-danger"
+                style="min-width: 100px"
+                type="button"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+          <div class="row g-3 justify-content-center">
+            <div class="col-auto d-flex">
+              <input
+                class="form-control me-lg-4"
+                type="search"
+                placeholder="Search ID"
+                aria-label="Search"
+              />
+              <button
+                class="btn btn-outline-dark js-btn-search-customer"
+                type="button"
+              >
+                Search
+              </button>
+            </div>
+          </div>
         </form>
 
-        <br>
+        <br />
         <table class="table table-dark table-hover js-tbl-customer">
-            <thead>
+          <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Address</th>
-                <th scope="col">Salary(Rs)</th>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Address</th>
+              <th scope="col">Salary(Rs)</th>
             </tr>
-            </thead>
-            <tbody class="js-tbl-body-customer">
+          </thead>
+          <tbody class="js-tbl-body-customer">
             <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
             </tr>
-            </tbody>
+          </tbody>
         </table>
-    </div>
-</main>
+      </div>
+    </main>
 
-<script src="lib/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
-<script src="lib/code.jquery.com_jquery-3.7.0.min.js"></script>
-<script src="controller/customerController.js"></script>
-<script src="util/navBar.js"></script>
-</body>
+    <script src="lib/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script src="lib/code.jquery.com_jquery-3.7.0.min.js"></script>
+
+    <script src="controller/customerController.js"></script>
+
+    <script src="model/CustomerModel.js"></script>
+
+    <script src="util/navBar.js"></script>
+  </body>
 </html>
