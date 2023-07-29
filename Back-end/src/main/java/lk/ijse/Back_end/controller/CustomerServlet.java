@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/customer")
 public class CustomerServlet extends HttpServlet {
@@ -78,7 +79,7 @@ public class CustomerServlet extends HttpServlet {
         Connection connection = dataSource.getConnection();
         connection.setAutoCommit(false);
 
-        if(!customerBO.isExist(customerDTO.getCustID(),connection)){
+        if (!customerBO.isExist(customerDTO.getCustID(), connection)) {
             lk.ijse.Back_end.util.Response response = new Response(400, "Customer not found", customerDTO.getCustID());
             resp.getWriter().write(jsonb.toJson(response));
             return;
@@ -118,7 +119,7 @@ public class CustomerServlet extends HttpServlet {
 
         Connection connection = dataSource.getConnection();
 
-        if(!customerBO.isExist(custId,connection)){
+        if (!customerBO.isExist(custId, connection)) {
             lk.ijse.Back_end.util.Response response = new Response(400, "Customer not found", custId);
             resp.getWriter().write(jsonb.toJson(response));
             return;
@@ -135,5 +136,70 @@ public class CustomerServlet extends HttpServlet {
 
         }
         System.out.println("Customer/Delete method ended");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Customer/Get method called");
+        String method = req.getParameter("method");
+        switch (method) {
+            case "SEARCH":
+                searchCustomer(req,resp);
+                break;
+            case "GETALL":
+                getAllCustomers(req,resp);
+                break;
+            default:
+                lk.ijse.Back_end.util.Response response = new Response(400, "Not suitable request", null);
+                resp.getWriter().write(jsonb.toJson(response));
+        }
+        System.out.println("Customer/Get method ended");
+    }
+
+    @SneakyThrows
+    private void getAllCustomers(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("Customer/Get-GetAll method called");
+        resp.setContentType("application/json");
+        resp.setStatus(HttpServletResponse.SC_OK);
+
+        Connection connection = dataSource.getConnection();
+
+        List<CustomerDTO> allCustomer = customerBO.getAllCustomer(connection);
+
+        Response response = new Response(200, "Success", allCustomer);
+        resp.getWriter().write(jsonb.toJson(response));
+
+        System.out.println("Customer/Get-GetAll method ended");
+    }
+
+    @SneakyThrows
+    private void searchCustomer(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("Customer/Get-Search method called");
+        resp.setContentType("application/json");
+        resp.setStatus(HttpServletResponse.SC_OK);
+
+        String custId = req.getParameter("custId");
+
+        System.out.println("Customer ID : " + custId);
+
+        Connection connection = dataSource.getConnection();
+
+        if (!customerBO.isExist(custId, connection)) {
+            lk.ijse.Back_end.util.Response response = new Response(400, "Customer not found", custId);
+            resp.getWriter().write(jsonb.toJson(response));
+            return;
+        }
+        try {
+            CustomerDTO customerDTO = customerBO.searchCustomer(custId, connection);
+            lk.ijse.Back_end.util.Response response = new Response(200, "Customer founded", customerDTO);
+            resp.getWriter().write(jsonb.toJson(response));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+            lk.ijse.Back_end.util.Response response = new Response(500, "Customer not found", throwables.getLocalizedMessage());
+            resp.getWriter().write(jsonb.toJson(response));
+
+        }
+        System.out.println("Customer/Get-Search method ended");
     }
 }

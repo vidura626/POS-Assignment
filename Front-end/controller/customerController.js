@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function (message) {
   //    Validation
 
   //    Add
@@ -96,4 +96,57 @@ $(document).ready(function () {
     });
   });
   //    Search
+  $(".js-btn-search-customer").click(function (message) {
+    console.log("search clicked");
+    let custId = $(".js-input-search-customer").val();
+
+    $.ajax({
+      url: "http://localhost:8080/Back_end_war/customer?method=SEARCH&custId=".concat(
+        custId
+      ),
+      contentType: "application/json",
+      method: "GET",
+      success: function (resp) {
+        console.log(resp);
+        if (resp.code === 200) {
+          // alert("Customer Founded Successfully ", resp.data);
+
+          $("#customer-id").val(resp.data.custID);
+          // $("#customer-name").val(name);
+          // $("#customer-address").val(address);
+          // $("#customer-salary").val(salary);
+        } else {
+          alert("Customer not founded : ".concat(resp.message));
+        }
+      },
+      error: function (err) {
+        console.log(err);
+      },
+    });
+  });
+  // Clear event
+  $(".js-btn-clear-customer").click(function () {
+    clearTable();
+  });
+  //Clear function
+  function clearTable() {
+    $("#customer-id").val("");
+    $("#customer-name").val("");
+    $("#customer-address").val("");
+    $("#customer-salary").val("");
+  }
+
+  //  Bind table data to inputs with click
+  $(".js-tbl-body-customer>tr").click(function () {
+    let id = $(this).children().eq(0).text();
+    let name = $(this).children().eq(1).text();
+    let address = $(this).children().eq(2).text();
+    let salary = $(this).children().eq(3).text();
+
+    console.log(id, name, address, salary);
+    $("#customer-id").val(id);
+    $("#customer-name").val(name);
+    $("#customer-address").val(address);
+    $("#customer-salary").val(salary);
+  });
 });
