@@ -22,6 +22,7 @@ import java.util.List;
 
 @WebServlet("/customer")
 public class CustomerServlet extends HttpServlet {
+    int x = 10;
     Jsonb jsonb = JsonbBuilder.create();
 
     CustomerBO customerBO = new CustomerBOImple();
@@ -40,7 +41,14 @@ public class CustomerServlet extends HttpServlet {
 
         System.out.println(customerDTO);
 
+
         Connection connection = dataSource.getConnection();
+        if (customerBO.isExist(customerDTO.getCustID(), connection)) {
+            lk.ijse.Back_end.util.Response response = new Response(400, "Customer already exist", customerDTO.getCustID());
+            resp.getWriter().write(jsonb.toJson(response));
+            return;
+        }
+
         customerDTO.setCustID(customerBO.generateNextId(connection));
 
         connection.setAutoCommit(false);
