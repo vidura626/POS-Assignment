@@ -22,7 +22,7 @@ import java.util.List;
 
 @WebServlet("/customer")
 public class CustomerServlet extends HttpServlet {
-
+int y = 100;
     Jsonb jsonb = JsonbBuilder.create();
 
     CustomerBO customerBO = new CustomerBOImple();
