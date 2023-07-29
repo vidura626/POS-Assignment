@@ -1,0 +1,44 @@
+drop database if exists posjavaee;
+create database if not exists posjavaee;
+use posjavaee;
+
+create table customer
+(
+    id      varchar(45),
+    name    varchar(255),
+    address text,
+    salary  double,
+    constraint primary key (id)
+);
+
+create table item
+(
+    code       varchar(45),
+    name       varchar(255),
+    qty        int,
+    unit_price double,
+    constraint primary key (code)
+);
+
+create table `order`
+(
+    id          varchar(45),
+    customer_id varchar(45),
+    date        date,
+    discount    double,
+    sub_total   double,
+    constraint primary key (id),
+    constraint foreign key (customer_id) references customer (id) on delete cascade on UPDATE cascade
+);
+
+create table order_details
+(
+    id varchar(45),
+    order_id varchar(45),
+    item_code varchar(45),
+    qty int,
+    unit_price double,
+    constraint primary key (id),
+    constraint foreign key (order_id) references `order` (id) on delete cascade on UPDATE cascade,
+    constraint foreign key (item_code) references item (code) on delete cascade on UPDATE cascade
+);
