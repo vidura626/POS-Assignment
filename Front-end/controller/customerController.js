@@ -20,6 +20,10 @@ $(document).ready(function (message) {
         checkInputs(salaryRegex, $(this));
     });
 
+    $(".js-input-search-customer").keyup(function () {
+        checkInputs(idRegex, $(this));
+    });
+
     function checkInputs(regexPatterm, input) {
         console.log(input);
         let regex = regexPatterm;
@@ -117,6 +121,7 @@ $(document).ready(function (message) {
         deleteCustomer();
     });
 
+//    Delete function
     function deleteCustomer() {
         let custId = $("#customer-id").val();
         $.ajax({
@@ -176,6 +181,7 @@ $(document).ready(function (message) {
 //   GetALl
     $(".js-btn-all-customer").click(getAllCustomers);
 
+//   GetALl function
     function getAllCustomers() {
         console.log("Get all function");
         $.ajax({
@@ -203,6 +209,15 @@ $(document).ready(function (message) {
         });
     }
 
+    $(".js-input-search-customer").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $(".js-tbl-body-customer > tr").each(function () {
+            var customerName = $(this).find('td:first').text().toLowerCase();
+            var isVisible = customerName.indexOf(value) > -1;
+            $(this).toggle(isVisible);
+        });
+    });
+
 
 // Clear event
     $(".js-btn-clear-customer").click(function () {
@@ -217,6 +232,8 @@ $(document).ready(function (message) {
         $("#customer-name").val("");
         $("#customer-address").val("");
         $("#customer-salary").val("");
+        $(".js-input-search-customer").val("");
+        getAllCustomers();
     }
 
 //Remove validation classes
@@ -225,6 +242,7 @@ $(document).ready(function (message) {
         $("#customer-name").removeClass("is-valid is-invalid");
         $("#customer-address").removeClass("is-valid is-invalid");
         $("#customer-salary").removeClass("is-valid is-invalid");
+        $(".js-input-search-customer").removeClass("is-valid is-invalid");
     }
 
 //  Bind table data to inputs with click
@@ -257,11 +275,17 @@ $(document).ready(function (message) {
         });
     }
 
+//  Delete customer with double click
     function removeRow() {
         $('.js-tbl-body-customer>tr').dblclick(function () {
             deleteCustomer();
             $(this).remove();
         });
     }
+
+
+    // Function to handle the search
+
+
 
 });
