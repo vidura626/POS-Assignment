@@ -212,7 +212,7 @@ $(document).ready(function (message) {
     $(".js-input-search-customer").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $(".js-tbl-body-customer > tr").each(function () {
-            var customerName = $(this).find('td:first').text().toLowerCase();
+            var customerName = $(this).find('td:nth-child(2)').text().toLowerCase();
             var isVisible = customerName.indexOf(value) > -1;
             $(this).toggle(isVisible);
         });
