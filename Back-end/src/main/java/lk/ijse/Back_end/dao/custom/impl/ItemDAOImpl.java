@@ -90,7 +90,6 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean isExist(String id, Connection connection) throws SQLException {
-        System.out.println("DAO Method");
         PreparedStatement statement = connection.prepareStatement("select * from item where code=?");
         statement.setObject(1, id);
         return statement.executeQuery().next();
