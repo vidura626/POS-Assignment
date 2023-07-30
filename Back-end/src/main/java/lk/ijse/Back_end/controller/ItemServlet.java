@@ -2,9 +2,10 @@ package lk.ijse.Back_end.controller;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
-import lk.ijse.Back_end.dto.CustomerDTO;
 import lk.ijse.Back_end.dto.ItemDTO;
+import lk.ijse.Back_end.service.custom.CustomerBO;
 import lk.ijse.Back_end.service.custom.ItemBO;
+import lk.ijse.Back_end.service.custom.imple.CustomerBOImple;
 import lk.ijse.Back_end.service.custom.imple.ItemBOImple;
 import lk.ijse.Back_end.util.Response;
 import lombok.SneakyThrows;
@@ -44,14 +45,14 @@ public class ItemServlet extends HttpServlet {
 
 
         Connection connection = dataSource.getConnection();
-        if (itemBO.isExist(itemDTO.getCode(), connection)) {
-            lk.ijse.Back_end.util.Response response = new Response(400, "Item already exist", itemDTO.getCode());
+        if (itemBO.isExist(itemDTO.getItemCode(), connection)) {
+            lk.ijse.Back_end.util.Response response = new Response(400, "Item already exist", itemDTO.getItemCode());
             resp.getWriter().write(jsonb.toJson(response));
             connection.close();
             return;
         }
 
-        itemDTO.setCode(itemBO.generateNextId(connection));
+        itemDTO.setItemCode(itemBO.generateNextId(connection));
 
         connection.setAutoCommit(false);
         try {
@@ -90,8 +91,8 @@ public class ItemServlet extends HttpServlet {
         Connection connection = dataSource.getConnection();
         connection.setAutoCommit(false);
 
-        if (!itemBO.isExist(itemDTO.getCode(), connection)) {
-            lk.ijse.Back_end.util.Response response = new Response(400, "Item not found", itemDTO.getCode());
+        if (!itemBO.isExist(itemDTO.getItemCode(), connection)) {
+            lk.ijse.Back_end.util.Response response = new Response(400, "Item not found", itemDTO.getItemCode());
             resp.getWriter().write(jsonb.toJson(response));
             connection.close();
             return;
