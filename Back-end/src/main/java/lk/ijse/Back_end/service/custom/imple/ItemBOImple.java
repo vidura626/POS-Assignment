@@ -40,9 +40,9 @@ public class ItemBOImple implements ItemBO {
     @Override
     public List<ItemDTO> getAllItem(Connection connection) throws SQLException {
         List<Item> all = itemDAO.getAll(connection);
-        List<ItemDTO> customers = modelMapper.map(all, new TypeToken<List<ItemDTO>>() {
+        List<ItemDTO> items = modelMapper.map(all, new TypeToken<List<ItemDTO>>() {
         }.getType());
-        return customers;
+        return items;
     }
 
     @Override
