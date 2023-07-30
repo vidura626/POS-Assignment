@@ -67,6 +67,7 @@
         </h1>
         <form id="form-customer" class="border p-3">
           <div class="row g-3 justify-content-center">
+
             <div class="col-auto mb-3">
               <input
                 type="text"
@@ -74,6 +75,9 @@
                 id="customer-id"
                 name="custID"
                 placeholder="ID : C00-001"
+                required
+                maxlength="50"
+                minlength="5"
               />
             </div>
             <div class="col-auto mb-3">
@@ -125,6 +129,15 @@
             </div>
             <div class="col-auto mb-3">
               <button
+                      class="btn btn-dark js-btn-all-customer"
+                      style="min-width: 100px"
+                      type="button"
+              >
+                Get All
+              </button>
+            </div>
+            <div class="col-auto mb-3">
+              <button
                 class="btn btn-danger js-btn-delete-customer"
                 style="min-width: 100px"
                 type="button"
@@ -171,12 +184,6 @@
             </tr>
           </thead>
           <tbody class="js-tbl-body-customer">
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
           </tbody>
         </table>
       </div>
