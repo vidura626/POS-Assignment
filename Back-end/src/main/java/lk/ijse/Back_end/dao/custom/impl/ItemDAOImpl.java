@@ -1,7 +1,6 @@
 package lk.ijse.Back_end.dao.custom.impl;
 
 import lk.ijse.Back_end.dao.custom.ItemDAO;
-import lk.ijse.Back_end.entity.Customer;
 import lk.ijse.Back_end.entity.Item;
 
 import java.sql.Connection;

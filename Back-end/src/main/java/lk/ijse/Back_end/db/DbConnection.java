@@ -1,11 +1,8 @@
 package lk.ijse.Back_end.db;
 
 import javax.annotation.Resource;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbConnection {

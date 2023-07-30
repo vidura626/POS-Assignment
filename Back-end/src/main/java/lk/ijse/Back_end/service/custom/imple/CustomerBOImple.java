@@ -2,7 +2,6 @@ package lk.ijse.Back_end.service.custom.imple;
 
 import lk.ijse.Back_end.dao.custom.CustomerDAO;
 import lk.ijse.Back_end.dao.custom.impl.CustomerDAOImpl;
-import lk.ijse.Back_end.db.DbConnection;
 import lk.ijse.Back_end.dto.CustomerDTO;
 import lk.ijse.Back_end.entity.Customer;
 import lk.ijse.Back_end.service.custom.CustomerBO;
@@ -10,8 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 

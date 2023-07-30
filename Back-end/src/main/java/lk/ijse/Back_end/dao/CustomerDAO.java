@@ -1,9 +1,5 @@
 package lk.ijse.Back_end.dao;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
 public class CustomerDAO {
    /* Connection connection = DbConnection.getConnection().openSession();
 
