@@ -15,11 +15,11 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public void save(Item item, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO item (code, name, unit_price, qty) VALUES (?, ?, ?, ?)");
-        statement.setString(1, item.getCode());
-        statement.setString(2, item.getName());
-        statement.setInt(3, item.getQty());
-        statement.setDouble(4, item.getUnit_price());
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO item VALUES (?, ?, ?, ?)");
+        statement.setString(1, item.getItemCode());
+        statement.setString(2, item.getItemName());
+        statement.setInt(3, item.getItemQty());
+        statement.setDouble(4, item.getItemUnitPrice());
         statement.executeUpdate();
         statement.close();
     }
@@ -27,10 +27,10 @@ public class ItemDAOImpl implements ItemDAO {
     @Override
     public void update(Item item, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("UPDATE item SET name = ?, unit_price = ?, qty = ? WHERE code = ?");
-        statement.setString(1, item.getCode());
-        statement.setString(2, item.getName());
-        statement.setInt(3, item.getQty());
-        statement.setDouble(4, item.getUnit_price());
+        statement.setString(1, item.getItemName());
+        statement.setDouble(2, item.getItemUnitPrice());
+        statement.setInt(3, item.getItemQty());
+        statement.setString(4, item.getItemCode());
         statement.executeUpdate();
         statement.close();
     }
@@ -45,7 +45,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public Item search(String id, Connection connection) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("select * from customer where id=?");
+        PreparedStatement statement = connection.prepareStatement("select * from item where code=?");
         statement.setObject(1, id);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
@@ -56,12 +56,12 @@ public class ItemDAOImpl implements ItemDAO {
                     resultSet.getDouble(4)
             );
         }
-        throw new SQLException("Customer not found");
+        throw new SQLException("Item not found");
     }
 
     @Override
     public List<Item> getAll(Connection connection) throws SQLException {
-        ResultSet resultSet = connection.prepareStatement("select * from customer").executeQuery();
+        ResultSet resultSet = connection.prepareStatement("select * from item").executeQuery();
         List<Item> items = new ArrayList<>();
         while (resultSet.next()) {
             items.add(
@@ -90,6 +90,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public boolean isExist(String id, Connection connection) throws SQLException {
+        System.out.println("DAO Method");
         PreparedStatement statement = connection.prepareStatement("select * from item where code=?");
         statement.setObject(1, id);
         return statement.executeQuery().next();
