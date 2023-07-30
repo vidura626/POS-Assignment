@@ -46,6 +46,7 @@ public class CustomerServlet extends HttpServlet {
         if (customerBO.isExist(customerDTO.getCustID(), connection)) {
             lk.ijse.Back_end.util.Response response = new Response(400, "Customer already exist", customerDTO.getCustID());
             resp.getWriter().write(jsonb.toJson(response));
+            connection.close();
             return;
         }
 
@@ -67,6 +68,7 @@ public class CustomerServlet extends HttpServlet {
 
         } finally {
             connection.setAutoCommit(true);
+            connection.close();
         }
 
         System.out.println("Customer/Post method ended");
@@ -90,6 +92,7 @@ public class CustomerServlet extends HttpServlet {
         if (!customerBO.isExist(customerDTO.getCustID(), connection)) {
             lk.ijse.Back_end.util.Response response = new Response(400, "Customer not found", customerDTO.getCustID());
             resp.getWriter().write(jsonb.toJson(response));
+            connection.close();
             return;
         }
 
@@ -109,6 +112,7 @@ public class CustomerServlet extends HttpServlet {
 
         } finally {
             connection.setAutoCommit(true);
+            connection.close();
         }
 
         System.out.println("Customer/Put method ended");
@@ -130,6 +134,7 @@ public class CustomerServlet extends HttpServlet {
         if (!customerBO.isExist(custId, connection)) {
             lk.ijse.Back_end.util.Response response = new Response(400, "Customer not found", custId);
             resp.getWriter().write(jsonb.toJson(response));
+            connection.close();
             return;
         }
         try {
@@ -142,6 +147,8 @@ public class CustomerServlet extends HttpServlet {
             lk.ijse.Back_end.util.Response response = new Response(500, "Delete Failed : ", throwables.getLocalizedMessage());
             resp.getWriter().write(jsonb.toJson(response));
 
+        }finally {
+            connection.close();
         }
         System.out.println("Customer/Delete method ended");
     }
@@ -173,7 +180,8 @@ public class CustomerServlet extends HttpServlet {
         Connection connection = dataSource.getConnection();
 
         List<CustomerDTO> allCustomer = customerBO.getAllCustomer(connection);
-
+        connection.close();
+        System.out.println(allCustomer.size());
         Response response = new Response(200, "Success", allCustomer);
         resp.getWriter().write(jsonb.toJson(response));
 
@@ -195,6 +203,7 @@ public class CustomerServlet extends HttpServlet {
         if (!customerBO.isExist(custId, connection)) {
             lk.ijse.Back_end.util.Response response = new Response(400, "Customer not found", custId);
             resp.getWriter().write(jsonb.toJson(response));
+            connection.close();
             return;
         }
         try {
@@ -207,6 +216,8 @@ public class CustomerServlet extends HttpServlet {
             lk.ijse.Back_end.util.Response response = new Response(500, "Customer not found", throwables.getLocalizedMessage());
             resp.getWriter().write(jsonb.toJson(response));
 
+        }finally {
+            connection.close();
         }
         System.out.println("Customer/Get-Search method ended");
     }
