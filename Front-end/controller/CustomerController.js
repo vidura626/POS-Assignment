@@ -63,13 +63,26 @@ $(document).ready(function (message) {
             success: function (resp) {
                 console.log(resp);
                 if (resp.code === 200) {
-                    alert("Customer Added Successfully");
+                    // alert("");
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Customer Added Successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     $(".js-tbl-body-customer").append
                     (`<tr><td>${custId}</td></td><td>${custName}</td><td>${custAddress}</td><td>${custSalary}</tr>`);
                     clearForm();
                     removeValidationClasses();
                 } else {
-                    alert("Customer Added Failed : ".concat(resp.message));
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: resp.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }
             },
             error: function (err) {

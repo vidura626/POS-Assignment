@@ -63,13 +63,25 @@ $(document).ready(function (message) {
             success: function (resp) {
                 console.log(resp);
                 if (resp.code === 200) {
-                    alert("Item Added Successfully");
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Item Added Successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     $(".js-tbl-body-customer").append
                     (`<tr><td>${itemCode}</td></td><td>${itemName}</td><td>${itemQty}</td><td>${itemUnitPrice}</tr>`);
                     clearForm();
                     removeValidationClasses();
                 } else {
-                    alert("Item Added Failed : ".concat(resp.message));
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: resp.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }
             },
             error: function (err) {
