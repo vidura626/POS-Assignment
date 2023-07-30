@@ -2,6 +2,7 @@ package lk.ijse.Back_end.service.custom.imple;
 
 
 import lk.ijse.Back_end.dao.custom.ItemDAO;
+import lk.ijse.Back_end.dao.custom.impl.ItemDAOImpl;
 import lk.ijse.Back_end.dto.ItemDTO;
 import lk.ijse.Back_end.entity.Item;
 import lk.ijse.Back_end.service.custom.ItemBO;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ItemBOImple implements ItemBO {
-    private ItemDAO itemDAO;
+    private ItemDAO itemDAO = new ItemDAOImpl();
     private ModelMapper modelMapper = new ModelMapper();
 
     @Override
