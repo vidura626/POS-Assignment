@@ -8,8 +8,8 @@ import lombok.*;
 @Setter
 @ToString
 public class ItemDTO {
-    private String code;
-    private String name;
-    private int qty;
-    private double unit_price;
+    private String itemCode;
+    private String itemName;
+    private int itemQty;
+    private double itemUnitPrice;
 }
