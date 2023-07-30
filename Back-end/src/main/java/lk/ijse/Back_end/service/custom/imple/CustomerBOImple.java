@@ -7,6 +7,7 @@ import lk.ijse.Back_end.dto.CustomerDTO;
 import lk.ijse.Back_end.entity.Customer;
 import lk.ijse.Back_end.service.custom.CustomerBO;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,8 +46,11 @@ public class CustomerBOImple implements CustomerBO {
     }
 
     @Override
-    public List<CustomerDTO> getAllCustomer(Connection connection) {
-        return null;
+    public List<CustomerDTO> getAllCustomer(Connection connection) throws SQLException {
+        List<Customer> all = customerDAO.getAll(connection);
+        List<CustomerDTO> customers = modelMapper.map(all, new TypeToken<List<CustomerDTO>>() {
+        }.getType());
+        return customers;
     }
 
     @Override
