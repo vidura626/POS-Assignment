@@ -1,8 +1,8 @@
-navigate($("#sec-customer"));
+navigate($("#sec-placeOrder"));
 
 $("#btnCustomerNav").click(() => navigate($("#sec-customer")));
 $("#btnItemNav").click(() => navigate($("#sec-item")));
-// $("#btnOrderNav").click(() => navigate($(".sec-placeOrder")));
+$("#btnOrderNav").click(() => navigate($("#sec-placeOrder")));
 
 function navigate(location) {
     var sections = $("main>section");
