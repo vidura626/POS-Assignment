@@ -1,7 +1,6 @@
 package lk.ijse.Back_end.dao.custom.impl;
 
 import lk.ijse.Back_end.dao.custom.OrderDAO;
-import lk.ijse.Back_end.entity.Item;
 import lk.ijse.Back_end.entity.Order;
 
 import java.sql.*;
@@ -13,11 +12,11 @@ public class OrderDAOImpl implements OrderDAO {
     public void save(Order order, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement
                 ("INSERT INTO `order` VALUES (?, ?, ?, ?, ?)");
-        statement.setString(1, order.getOId());
-        statement.setString(2, order.getCustId());
-        ((PreparedStatement) statement).setDate(3, new Date(order.getDate().getTime())); // Assuming 'Date' property is of type java.util.Date
-        statement.setDouble(4, order.getDiscount());
-        statement.setDouble(5, order.getSubtotal());
+        statement.setString(1, order.getOrId());
+        statement.setString(2, order.getOrCusId());
+        ((PreparedStatement) statement).setDate(3, new Date(order.getOrDate().getTime()));
+        statement.setDouble(4, order.getOrDis());
+        statement.setDouble(5, order.getOrSubTotal());
         statement.executeUpdate();
         statement.close();
 
@@ -26,12 +25,12 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public void update(Order order, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement
-                ("UPDATE `order` SET custId = ?, date = ?, discount = ?, sub_total = ? WHERE oId = ?");
-        statement.setString(1, order.getCustId());
-        statement.setDate(2, new Date(order.getDate().getTime()));
-        statement.setDouble(3, order.getDiscount());
-        statement.setDouble(4, order.getSubtotal());
-        statement.setString(5, order.getOId());
+                ("UPDATE `order` SET customer_id = ?, date = ?, discount = ?, sub_total = ? WHERE oId = ?");
+        statement.setString(1, order.getOrCusId());
+        statement.setDate(2, new Date(order.getOrDate().getTime()));
+        statement.setDouble(3, order.getOrDis());
+        statement.setDouble(4, order.getOrSubTotal());
+        statement.setString(5, order.getOrId());
         statement.executeUpdate();
         statement.close();
     }
@@ -51,7 +50,7 @@ public class OrderDAOImpl implements OrderDAO {
         statement.setString(1, id);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
-            String custId = resultSet.getString("custId");
+            String custId = resultSet.getString("customer_id");
             Date date = resultSet.getDate("date");
             double discount = resultSet.getDouble("discount");
             double subtotal = resultSet.getDouble("sub_total");
@@ -70,11 +69,11 @@ public class OrderDAOImpl implements OrderDAO {
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             String oId = resultSet.getString("oId");
-            String custId = resultSet.getString("custId");
+            String customer_id = resultSet.getString("customer_id");
             Date date = resultSet.getDate("date");
             double discount = resultSet.getDouble("discount");
             double subtotal = resultSet.getDouble("sub_total");
-            Order order = new Order(oId, custId, date, discount, subtotal);
+            Order order = new Order(oId, customer_id, date, discount, subtotal);
             orders.add(order);
         }
         resultSet.close();

@@ -1,3 +1,4 @@
+var itemAr = [];
 $(document).ready(function (message) {
     getAllItems();
     //Regex
@@ -207,6 +208,8 @@ $(document).ready(function (message) {
                         $(".js-tbl-body-item").append
                         (`<tr><td>${resp.data[i].itemCode}</td><td>${resp.data[i].itemName}</td><td>${resp.data[i].itemQty}</td><td>${resp.data[i].itemUnitPrice}</td></tr>`);
                     }
+                    itemAr = resp.data;
+                    loadAllItemId();
                     bindDataTbl();
                     removeRow();
                 } else {
@@ -255,35 +258,7 @@ $(document).ready(function (message) {
         $(".js-input-search-item").removeClass("is-valid is-invalid");
     }
 
-//  Bind table data to inputs with click
-    function bindDataTbl() {
-        $(".js-tbl-body-item>tr").click(function () {
-            let itemCode = $(this).children().eq(0).text();
-            let itemName = $(this).children().eq(1).text();
-            let itemQty = $(this).children().eq(2).text();
-            let itemUnitPrice = $(this).children().eq(3).text();
 
-            console.log(itemCode, itemName, itemQty, itemUnitPrice);
-            $("#item-code").prop("disabled", true);
-            $("#item-code").val(itemCode);
-            $("#item-name").val(itemName);
-            $("#item-qty").val(itemQty);
-            $("#item-unit-price").val(itemUnitPrice);
-        });
-        $(".js-tbl-body-customer>tr").dblclick(function () {
-            let itemCode = $(this).children().eq(0).text();
-            let itemName = $(this).children().eq(1).text();
-            let itemQty = $(this).children().eq(2).text();
-            let itemUnitPrice = $(this).children().eq(3).text();
-
-            console.log(itemCode, itemName, itemQty, itemUnitPrice);
-            $("#item-code").prop("disabled", true);
-            $("#item-code").val(itemCode);
-            $("#item-name").val(itemName);
-            $("#item-qty").val(itemQty);
-            $("#item-unit-price").val(itemUnitPrice);
-        });
-    }
 
 //  Delete customer with double click
     function removeRow() {
@@ -298,3 +273,32 @@ $(document).ready(function (message) {
 
 
 });
+//  Bind table data to inputs with click
+function bindDataTbl() {
+    $(".js-tbl-body-item>tr").click(function () {
+        let itemCode = $(this).children().eq(0).text();
+        let itemName = $(this).children().eq(1).text();
+        let itemQty = $(this).children().eq(2).text();
+        let itemUnitPrice = $(this).children().eq(3).text();
+
+        console.log(itemCode, itemName, itemQty, itemUnitPrice);
+        $("#item-code").prop("disabled", true);
+        $("#item-code").val(itemCode);
+        $("#item-name").val(itemName);
+        $("#item-qty").val(itemQty);
+        $("#item-unit-price").val(itemUnitPrice);
+    });
+    $(".js-tbl-body-customer>tr").dblclick(function () {
+        let itemCode = $(this).children().eq(0).text();
+        let itemName = $(this).children().eq(1).text();
+        let itemQty = $(this).children().eq(2).text();
+        let itemUnitPrice = $(this).children().eq(3).text();
+
+        console.log(itemCode, itemName, itemQty, itemUnitPrice);
+        $("#item-code").prop("disabled", true);
+        $("#item-code").val(itemCode);
+        $("#item-name").val(itemName);
+        $("#item-qty").val(itemQty);
+        $("#item-unit-price").val(itemUnitPrice);
+    });
+}

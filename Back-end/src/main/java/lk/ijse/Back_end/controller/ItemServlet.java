@@ -9,6 +9,7 @@ import lk.ijse.Back_end.service.custom.imple.CustomerBOImple;
 import lk.ijse.Back_end.service.custom.imple.ItemBOImple;
 import lk.ijse.Back_end.util.Response;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -22,9 +23,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/item")
+@WebServlet(name = "Item  Servlet",urlPatterns = "/item")
 public class ItemServlet extends HttpServlet {
-
     Jsonb jsonb = JsonbBuilder.create();
 
     ItemBO itemBO = new ItemBOImple();

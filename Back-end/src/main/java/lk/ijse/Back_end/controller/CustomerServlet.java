@@ -20,7 +20,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/customer")
+@WebServlet(name = "Customer Servlet" ,urlPatterns = "/customer")
 public class CustomerServlet extends HttpServlet {
 
     Jsonb jsonb = JsonbBuilder.create();

@@ -1,3 +1,5 @@
+var customerAr = [];
+
 $(document).ready(function (message) {
     getAllCustomers();
     //Regex
@@ -210,7 +212,10 @@ $(document).ready(function (message) {
                         $(".js-tbl-body-customer").append
                         (`<tr><td>${resp.data[i].custID}</td><td>${resp.data[i].custName}</td><td>${resp.data[i].custAddress}</td><td>${resp.data[i].custSalary}</td></tr>`);
                     }
-                    bindDataTbl();
+                    customerAr = resp.data;
+                    console.log(customerAr);
+                    loadAllCustomerId();
+                    bindDataTblCustomer();
                     removeRow();
                 } else {
                     alert("Customer not founded : ".concat(resp.message));
@@ -259,7 +264,7 @@ $(document).ready(function (message) {
     }
 
 //  Bind table data to inputs with click
-    function bindDataTbl() {
+    function bindDataTblCustomer() {
         $(".js-tbl-body-customer>tr").click(function () {
             let id = $(this).children().eq(0).text();
             let name = $(this).children().eq(1).text();

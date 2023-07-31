@@ -10,9 +10,9 @@ import java.sql.Date;
 @Setter
 @ToString
 public class OrderDTO {
-    private String oId;
-    private String custId;
-    private Date date;
-    private double discount;
-    private double subtotal;
+    private String orId;
+    private String orCusId;
+    private Date orDate;
+    private double orDis;
+    private double orSubTotal;
 }
