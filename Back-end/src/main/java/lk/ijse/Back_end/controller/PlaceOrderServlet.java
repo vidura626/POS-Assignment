@@ -2,10 +2,10 @@ package lk.ijse.Back_end.controller;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
-import lk.ijse.Back_end.service.custom.ItemBO;
+import lk.ijse.Back_end.dto.OrderDTO;
 import lk.ijse.Back_end.service.custom.OrderBO;
-import lk.ijse.Back_end.service.custom.imple.ItemBOImple;
 import lk.ijse.Back_end.service.custom.imple.OrderBOImple;
+import org.eclipse.yasson.YassonConfig;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
 
-@WebServlet(name = "Order Servlet", urlPatterns = {"/order"})
-public class OrderServlet extends HttpServlet {
-    Jsonb jsonb = JsonbBuilder.create();
+@WebServlet(name = "Place Order Servlet", urlPatterns = {"/placeorder"})
+public class PlaceOrderServlet extends HttpServlet {
+    Jsonb jsonb = JsonbBuilder.create(new YassonConfig().setProperty(YassonConfig.ZERO_TIME_PARSE_DEFAULTING, true));
     OrderBO orderBO = new OrderBOImple();
     @Resource(name = "java:comp/env/jdbc/customer")
     DataSource dataSource;
@@ -31,7 +31,9 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        OrderDTO orderDTO = jsonb.fromJson(req.getReader(), OrderDTO.class);
+        System.out.println(orderDTO);
+
     }
 
     @Override
