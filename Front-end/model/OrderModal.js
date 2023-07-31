@@ -10,11 +10,12 @@
 // }
 
 class OrderModal {
-    constructor(orderId, orderDate, customerName, discount, subTotal) {
+    constructor(orderId, orderDate, customerName, discount, subTotal, orderDetails) {
         this.orId = orderId;
         this.orDate = orderDate;
         this.orCusId = customerName;
         this.orDis = discount;
         this.orSubTotal = subTotal;
+        this.orderDetails = orderDetails;
     }
 }
