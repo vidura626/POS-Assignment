@@ -162,25 +162,38 @@ $('#purchaseOrder').click(function () {
     let discount = disTOGave;
     let subTotal = $('#subTotal').val();
 
-    let orderModal = new OrderModal(orderId, orderDate, customerId, discount, subTotal);
-    orders.push(orderModal);
+    if (orderDate === '') {
+        alert("Please check the form");
+        return;
+    }
 
+    console.log(tempOrderCartAr)
+    let orderModal = new OrderModal(orderId, orderDate, customerId, discount, subTotal, tempOrderCartAr);
+    // orders.push(orderModal);
+    console.log(orderModal);
 
     $.ajax({
-       url:'http://localhost:8080/Back_end_war/placeorder',
+        url: 'http://localhost:8080/Back_end_war/placeorder',
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(orderModal),
+        success: function (resp) {
+            console.log(resp);
+            loadAllOrder();
+            blindOrderRowClickEvent();
+            clearOrderTexts();
 
+            for (var tempOrder of tempOrderCartAr) {
+                tempOrderCartAr.pop();
+            }
+            tempOrderCartAr.pop();
+            addCartData();
+        },
+        error: function (err) {
+            console.log("Error :", err);
+        }
     });
 
-
-    loadAllOrder();
-    blindOrderRowClickEvent();
-    clearOrderTexts();
-
-    for (var tempOrder of tempOrderCartAr) {
-        tempOrderCartAr.pop();
-    }
-    tempOrderCartAr.pop();
-    addCartData();
 
     // console.log(orderArray);
 });
