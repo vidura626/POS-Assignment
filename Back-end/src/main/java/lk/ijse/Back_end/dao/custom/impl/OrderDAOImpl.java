@@ -86,10 +86,10 @@ public class OrderDAOImpl implements OrderDAO {
         ResultSet resultSet = connection.prepareStatement("SELECT oId FROM `order` ORDER BY oId DESC limit 1").executeQuery();
         if (resultSet.next()) {
             String lastId = resultSet.getString(1);
-            int i = Integer.parseInt(lastId.replace("PO-", "")) + 1;
-            return String.format("PO-%03d", i);
+            int i = Integer.parseInt(lastId.replace("O", "")) + 1;
+            return String.format("O%03d", i);
         } else {
-            return "PO-001";
+            return "O001";
         }
     }
 
