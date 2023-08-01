@@ -2,8 +2,11 @@ package lk.ijse.Back_end.controller;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+import lk.ijse.Back_end.dto.CustomerDTO;
+import lk.ijse.Back_end.dto.ItemDTO;
 import lk.ijse.Back_end.dto.OrderDTO;
 import lk.ijse.Back_end.dto.OrderDetailsDTO;
+import lk.ijse.Back_end.entity.Customer;
 import lk.ijse.Back_end.service.custom.CustomerBO;
 import lk.ijse.Back_end.service.custom.ItemBO;
 import lk.ijse.Back_end.service.custom.OrderBO;
@@ -26,6 +29,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "Place Order Servlet", urlPatterns = {"/placeorder"})
 public class PlaceOrderServlet extends HttpServlet {
@@ -40,9 +44,43 @@ public class PlaceOrderServlet extends HttpServlet {
     private ItemBO itemBO = new ItemBOImple();
 
 
+    @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        System.out.println("PlaceOrder/Get method called");
+        String method = req.getParameter("method");
+        switch (method) {
+            case "SEARCH":
+//                searchPlaceOrder(req,resp);
+                break;
+            case "GETALL":
+                getAllOrders(req, resp);
+                break;
+            default:
+                lk.ijse.Back_end.util.Response response = new Response(400, "Not suitable request", null);
+                resp.getWriter().write(jsonb.toJson(response));
+        }
+        System.out.println("PlaceOrder/Get method ended");
+    }
+
+    @SneakyThrows
+    private void getAllOrders(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+        System.out.println("PlaceOrder/Get-GetAll method called");
+        resp.setContentType("application/json");
+        resp.setStatus(HttpServletResponse.SC_OK);
+
+        Connection connection = dataSource.getConnection();
+
+        List<OrderDTO> allOrders = orderBO.getAllOrders(connection);
+        for (OrderDTO dto : allOrders) {
+            dto.setOrCusName(customerBO.searchCustomer(dto.getOrCusId(),connection).getCustName());
+        }
+        connection.close();
+        System.out.println(allOrders.size());
+        Response response = new Response(200, "Success", allOrders);
+        resp.getWriter().write(jsonb.toJson(response));
+
+        System.out.println("PlaceOrder/Get-GetAll method ended");
     }
 
     @SneakyThrows
@@ -79,7 +117,10 @@ public class PlaceOrderServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        System.out.println("Put Requested");
+        System.out.println("Hiiii");
+        CustomerDTO customerDTO = jsonb.fromJson(req.getReader(), CustomerDTO.class);
+
     }
 
     @Override
