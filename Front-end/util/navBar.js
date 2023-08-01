@@ -1,4 +1,4 @@
-navigate($("#sec-placeOrder"));
+navigate($("#sec-order"));
 
 $("#btnCustomerNav").click(() => navigate($("#sec-customer")));
 $("#btnItemNav").click(() => navigate($("#sec-item")));
