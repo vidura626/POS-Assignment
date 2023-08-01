@@ -1,6 +1,8 @@
 var tempOrderCartAr = [];
 var orders = [];
 
+getAllOrders();
+
 function loadAllCustomerId() {
     $('#customerIdOrd').empty();
     for (let customerArElement of customerAr) {
@@ -167,7 +169,6 @@ $('#purchaseOrder').click(function () {
         return;
     }
 
-    console.log(tempOrderCartAr)
     let orderModal = new OrderModal(orderId, orderDate, customerId, discount, subTotal, tempOrderCartAr);
     // orders.push(orderModal);
     console.log(orderModal);
@@ -179,7 +180,6 @@ $('#purchaseOrder').click(function () {
         data: JSON.stringify(orderModal),
         success: function (resp) {
             console.log(resp);
-            loadAllOrder();
             blindOrderRowClickEvent();
             clearOrderTexts();
 
@@ -187,7 +187,9 @@ $('#purchaseOrder').click(function () {
                 tempOrderCartAr.pop();
             }
             tempOrderCartAr.pop();
+
             addCartData();
+            getAllOrders();
         },
         error: function (err) {
             console.log("Error :", err);
@@ -238,4 +240,21 @@ function loadAllOrder() {
     for (var i of orders) {
         $('#tblOrder').append('<tr><td>' + i.orId + '</td>' + '<td>' + i.orDate + '</td>' + '<td>' + i.orCusName + '</td>' + '<td>' + i.orDis + '</td>' + '<td>' + i.orSubTotal + '</td></tr>');
     }
+}
+
+function getAllOrders() {
+    console.log("Get all orders method called");
+    $.ajax({
+        url: "http://localhost:8080/Back_end_war/placeorder?method=GETALL",
+        contentType: "application/json",
+        method: "GET",
+        success: function (resp) {
+            orders = resp.data;
+            loadAllOrder();
+            blindOrderRowClickEvent();
+        },
+        error: function (err) {
+
+        }
+    });
 }
