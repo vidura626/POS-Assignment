@@ -47,6 +47,7 @@ public class PlaceOrderServlet extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         System.out.println("PlaceOrder/Get method called");
         String method = req.getParameter("method");
         switch (method) {
@@ -73,7 +74,7 @@ public class PlaceOrderServlet extends HttpServlet {
 
         List<OrderDTO> allOrders = orderBO.getAllOrders(connection);
         for (OrderDTO dto : allOrders) {
-            dto.setOrCusName(customerBO.searchCustomer(dto.getOrCusId(),connection).getCustName());
+            dto.setOrCusName(customerBO.searchCustomer(dto.getOrCusId(), connection).getCustName());
         }
         connection.close();
         System.out.println(allOrders.size());
@@ -123,8 +124,21 @@ public class PlaceOrderServlet extends HttpServlet {
 
     }
 
+    @SneakyThrows
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        System.out.println("PlaceOrder/Delete method called");
+        String orderId = req.getParameter("orderId");
+        try {
+            connection = dataSource.getConnection();
+            orderBO.deleteOrder(orderId, connection);
+            resp.getWriter().write(jsonb.toJson(new Response(200, "Order Deleted", orderId)));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            resp.getWriter().write(jsonb.toJson(new Response(200, "Order Delete Failed", throwables.getLocalizedMessage())));
+        } finally {
+            connection.close();
+        }
+        System.out.println("PlaceOrder/Delete method ended");
     }
 }
