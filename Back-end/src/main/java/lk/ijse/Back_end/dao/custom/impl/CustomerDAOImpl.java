@@ -59,8 +59,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         if (resultSet.next()) {
             return new Customer(
                     resultSet.getString(1),
-                    resultSet.getString(2),
-                    resultSet.getString(3),
+                    resultSet.getString(3), //address
+                    resultSet.getString(2),//name
                     resultSet.getDouble(4)
             );
         }
